@@ -1,5 +1,5 @@
 # DocParser
-Works only with long stripes to the power of two and with even tables
+Works only with stripe lengths up to the power of two and even tables
 
 ***
 Example:
