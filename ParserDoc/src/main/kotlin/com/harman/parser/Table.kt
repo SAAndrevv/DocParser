@@ -17,6 +17,9 @@ class Table(text: String, lines: Int, column: Int, width: Int): Element(text, wi
     private val widthColumn: Int
     private var delimiter = false
 
+    var countWordsInTable = 0
+        private set
+
 
     init {
         if (lines > 1 && lines % 2 != 0 ||
@@ -73,8 +76,13 @@ class Table(text: String, lines: Int, column: Int, width: Int): Element(text, wi
 
             if (element.hasNext()) {
                 element.next()
-
+                if (element is Paragraph) {
+                    countWordsInTable += (element as Paragraph).countWords
+                }
                 if (!element.hasNext()) {
+                    if (element is Table) {
+                        countWordsInTable += (element as Table).countWordsInTable
+                    }
                     countIterableElement--
                 }
             } else {

@@ -9,6 +9,7 @@ import java.io.File
 class MyReaderFile(path: String, private var width: Int) {
     private val text: String
     private val elements: ArrayList<Element?> = ArrayList()
+    private var countWords = 0
 
     init {
         //converting a number to a power of two
@@ -46,13 +47,20 @@ class MyReaderFile(path: String, private var width: Int) {
      * print elements method
      */
     fun print() {
+        println()
         for (element in elements) {
             if (element != null) {
                 while (element.hasNext()) {
                     element.next()
                 }
+                when (element) {
+                    is Table -> countWords += element.countWordsInTable
+                    is Paragraph -> countWords += element.countWords
+                }
+
             }
         }
+        println("\nCount of words in file $countWords")
 
     }
 

@@ -6,12 +6,26 @@ package com.harman.parser
 class Paragraph(text: String, width: Int): Element(text, width) {
     private val content: String
     private var isIterate = true
+    var countWords = 0
+        private set
+
 
     init {
         content = if (text.length > width)
             text.substring(0, width - 1)
         else
             text
+
+        countWordsInArray()
+    }
+
+    /**
+     * Count words in array method
+     */
+    private fun countWordsInArray() {
+        val regexWord = """(\b[a-zA-Z]+\b)""".toRegex()
+
+        countWords = content.split(" ", "-").count { regexWord.matches(it) }
     }
 
     /**
